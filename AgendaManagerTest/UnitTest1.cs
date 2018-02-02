@@ -18,7 +18,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            Assert.AreEqual(9,currentDay.Slots.Count);
+            Assert.AreEqual(10,currentDay.Slots.Count);
         }
     }
 }
