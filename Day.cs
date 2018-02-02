@@ -50,7 +50,16 @@ public class Day {
         return false;
     }
 
-    public bool RemoveFreeslot(DateTime date) {
-        return false;
+    public bool RemoveFreeslot(DateTime startdate) {
+        try {
+            int index = Slots.FindIndex(slot => { 
+                if(slot.StartTime == date && slot.GetType() == typeof(FreeSlot)) return true; 
+                else return false;
+            });
+            Slots.RemoveAt(index);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }
