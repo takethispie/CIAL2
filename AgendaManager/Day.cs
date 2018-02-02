@@ -8,6 +8,12 @@ public class Day {
     
     public Day(DateTime date) {
         this.DayDate = date;
+        this.Slots = new List<ISlot>();
+        var temp = new DateTime(date.Year, date.Month, date.Day,8,0,0);        
+        for(int i = 0; i < 10; i++) {
+            Slots.Add(new FreeSlot(temp,60));
+            temp = temp.AddHours((double)1);
+        }
     }
 
     public bool AddAppointement(DateTime date, string contact, string remarque) {
@@ -33,31 +39,10 @@ public class Day {
                 if(slot.StartTime == date && slot.GetType() == typeof(Appointement)) return true; 
                 else return false;
             });
-            Slots[index] = new FreeSlot();
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
-    public bool AddFreeslot(DateTime date, int duration) {
-        DateTime endTime = date.AddMinutes((double) duration);
-        List<ISlot> res = Slots.FindAll(sl => { 
-            DateTime slEndTime = sl.StartTime.AddMinutes((double)sl.DurationInMinutes);
-            if(sl.StartTime <= date && slEndTime >= endTime) return true;
-            else return false;
-         });
-        return false;
-    }
-
-    public bool RemoveFreeslot(DateTime startdate) {
-        try {
-            int index = Slots.FindIndex(slot => { 
-                if(slot.StartTime == startdate && slot.GetType() == typeof(FreeSlot)) return true; 
-                else return false;
-            });
-            Slots.RemoveAt(index);
-            return true;
+            if(index > -1) {
+                Slots[index] = new FreeSlot(Slots[index].StartTime, Slots[index].DurationInMinutes);
+                return true;
+            } else return false;
         } catch (Exception ex) {
             return false;
         }
