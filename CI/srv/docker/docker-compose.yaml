@@ -21,3 +21,8 @@ services:
   environment:
    - SERVER_URL=teamcity:8111
    - AGENT_NAME="tcagent_docker_v1_003"
+
+ sonarqube:
+  image: sonarqube
+  ports:
+    - "9000:9000"
