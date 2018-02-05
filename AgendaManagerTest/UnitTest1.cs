@@ -10,15 +10,22 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            var today = new DateTime();
-            var temp = new DateTime(today.Year, today.Month, today.Day);
-            currentDay = new Day(temp);
+            currentDay = new Day(new DateTime());
         }
 
         [Test]
-        public void Test1()
+        public void CorrectCountOfFreeSlot()
         {
             Assert.AreEqual(10,currentDay.Slots.Count);
+        }
+
+        [Test]
+        public void AddAppointement()
+        {
+            DateTime today = new DateTime();
+            DateTime temp = new DateTime(today.Year,today.Month,today.Day,9,0,0);
+            bool result = currentDay.AddAppointement(temp,"jean","");
+            Assert.AreEqual(result, true);
         }
     }
 }
