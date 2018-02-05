@@ -27,5 +27,19 @@ namespace Tests
             bool result = currentDay.AddAppointement(temp,"jean","");
             Assert.AreEqual(result, true);
         }
+
+        [Test]
+        public void checkDates() {
+            DateTime today = new DateTime();
+            DateTime temp = new DateTime(today.Year,today.Month,today.Day,9,0,0);
+            currentDay.AddAppointement(temp,"jean","");
+            temp = temp.AddHours((double)1);
+            currentDay.AddAppointement(temp,"fred","");
+            string dayDate = today.Year + "-" + today.Month + "-" + today.Day;
+            foreach(ISlot sl in currentDay.Slots) {
+                string date = sl.StartTime.Year + "-" + sl.StartTime.Month + "-" + sl.StartTime.Day;
+                Assert.AreEqual(date,dayDate);
+            }
+        }
     }
 }
